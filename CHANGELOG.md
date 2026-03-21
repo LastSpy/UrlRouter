@@ -2,6 +2,65 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.31
+- Main window quick shortcuts redesigned for better density and clarity:
+  - moved app shortcuts into a compact top area near module/settings controls,
+  - switched to multi-row compact layout (up to 9 visible shortcuts),
+  - removed repeated `Open with` text from each button,
+  - kept icon-first shortcut style with shortened app names.
+- Added a shared `Open with:` heading for the whole shortcut group.
+- Improved dynamic sizing for the top controls area to avoid clipping and overlap.
+
+## v0.0.30
+- Main screen layout refresh:
+  - replaced plain modules text area with a dedicated `Module status` block (same visual style as `Scanner status`),
+  - improved readability and grouping of module output.
+- Quick app shortcuts moved higher in the UI:
+  - `Open with ...` shortcuts are now shown near `Modules` / `Settings` / `Rule tester`,
+  - bottom area is cleaner and less crowded as module blocks grow.
+
+## v0.0.29
+- Installer build generated (UrlRouter-Setup.exe).
+
+## v0.0.28
+- Added new module: `TLD checker`.
+- TLD checker warns about frequently abused top-level domains and adds informational notes for normal TLDs.
+- Installer build generated (`UrlRouter-Setup.exe`).
+
+## v0.0.27
+- Auto-update GitHub API mapping fix verified in installer build.
+- Installer build generated (`UrlRouter-Setup.exe`).
+
+## v0.0.26
+- Added update banner on main screen with `Update` button for in-app installer download/start.
+- Improved non-intrusive update UX (status in UI instead of immediate popup flow).
+- Installer build generated (`UrlRouter-Setup.exe`).
+
+## v0.0.25
+- Added project publishing essentials for GitHub:
+  - `.gitignore` for build artifacts and local files,
+  - `LICENSE` (MIT, author: LastSpy),
+  - updated repository guidance in `README.md`.
+- Added and connected application branding icon across main dialogs.
+- Continued installer release flow (Inno Setup) for latest build delivery.
+
+## v0.0.24
+- Improved scanner final clarity:
+  - explicit verdict (`UNSAFE` / `LIKELY SAFE` / `UNKNOWN`),
+  - checked providers count and alert count in summary,
+  - cleaner replacement of scanner notes/warnings on re-scan.
+- Expanded scanner status details per provider:
+  - `next use`, `quota left`, `reset at`, `blocked until` (when available),
+  - better visual interpretation of HTTP status and state.
+- Added "Last check" line in scanner panel (provider + timestamp + success/error).
+- Settings updates:
+  - added `About` button,
+  - author shown as `LastSpy`,
+  - removed visible `Updates URL` field.
+- Auto-update flow upgraded:
+  - uses GitHub Releases source by default (`LastSpy/UrlRouter`),
+  - keeps manual `Check updates now` and startup auto-check.
+
 ## v0.0.23
 - Added first in-app updater flow:
   - update manifest URL in Settings,
