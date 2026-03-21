@@ -2,6 +2,12 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.32
+- Added proper application icon packaging for Windows shell integration:
+  - embedded `assets/UrlRouter.ico` into the app executable,
+  - configured installer setup icon to use the same brand icon.
+- Improved icon consistency for taskbar, Start menu, installer, and app shortcuts.
+
 ## v0.0.31
 - Main window quick shortcuts redesigned for better density and clarity:
   - moved app shortcuts into a compact top area near module/settings controls,
