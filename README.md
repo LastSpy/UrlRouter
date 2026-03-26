@@ -43,7 +43,6 @@ Version history: [CHANGELOG.md](CHANGELOG.md)
 ## Ideas for the next step
 
 - `More...` button for quick apps (show all candidates when more than 9)
-- Rule Manager UI (view/edit/delete/sort saved rules)
 - Export/import rules (`json`)
 - History UI with filters and re-open actions
 - Risk score (`0..100`) with clear reasons from scanner providers
