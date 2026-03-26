@@ -2,6 +2,21 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.34
+- Added new `Rule Manager` UI on the main screen (`Rules` button):
+  - view all saved rules in a single table,
+  - add/edit/delete rules,
+  - move rules up/down,
+  - sort rules by type/value.
+- Added dedicated rule editor dialog with validation for type/value/app path.
+- Installer build generated (`UrlRouter-Setup.exe`).
+- Improved quick app detection for custom URI schemes:
+  - added better handling for IDE schemes (`vscode://`, `vscode-insiders://`, `vscodium://`, `cursor://`, `windsurf://`),
+  - added protocol-handler discovery from Windows registry (`<scheme>\\shell\\open\\command`).
+- Improved quick app detection for direct download links:
+  - added download/archive/java link classification by extension and MIME,
+  - expanded suggested app groups for download managers, archive tools, and Java runtimes.
+
 ## v0.0.32
 - Added proper application icon packaging for Windows shell integration:
   - embedded `assets/UrlRouter.ico` into the app executable,
