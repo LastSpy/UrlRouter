@@ -2,6 +2,22 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.36
+- Added `httpproxy://` protocol interception for media streams from Android/WSA apps.
+  - UrlRouter now registers itself as handler for `httpproxy://` alongside `http://` and `https://`.
+  - Media-proxy URLs are passed directly to the player without HTTP analysis (no HEAD/GET probe).
+  - Matching rules and manual app selection work the same as for regular URLs.
+- Fixed: non-web schemes (httpproxy://, rtmp://, etc.) no longer crash the analysis pipeline.
+- Fixed: opening without a URL now shows the UrlRouter home screen instead of a text message.
+
+## v0.0.35
+- Fixed: UrlRouter now registers itself in the Windows registry as a protocol handler on first launch or when opened without arguments.
+  - Writes `UrlRouterURL` ProgId with shell command `UrlRouter.exe "%1"` under `HKCU\SOFTWARE\Classes`.
+  - Registers `Capabilities` + `URLAssociations` (http/https) under `HKCU\SOFTWARE\UrlRouter`.
+  - Registers under `HKCU\SOFTWARE\RegisteredApplications` so UrlRouter appears in Windows "Default apps" browser list.
+- Fixed: launching without a URL argument now auto-registers and opens Default Apps settings instead of showing an unhelpful error.
+- Fixed: "Default associations" button in Settings also re-registers before opening Default Apps settings (handles exe relocation).
+
 ## v0.0.34
 - Added new `Rule Manager` UI on the main screen (`Rules` button):
   - view all saved rules in a single table,
@@ -183,3 +199,4 @@ All notable changes to UrlRouter.
   - show app chooser,
   - open URL with selected app,
   - basic settings persistence.
+
