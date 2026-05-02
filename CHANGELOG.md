@@ -2,6 +2,17 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.37
+- Added M3U Editor: when the effective URL is a local `.m3u` or `.m3u8` file, an `Edit .m3u` button appears on the main screen.
+  - Opens a dedicated editor with syntax-highlighted file content (directives, stream URLs, comments each in distinct colors).
+  - Detected stream URLs are listed separately; clicking `Use as effective URL` extracts the URL and returns it to the main window for opening with a media player.
+  - File content is editable and can be saved back to disk via `Save file`.
+- Fixed: `Open in browser (bypass)` now correctly uses the Windows default browser.
+  - Reads the default browser from `HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice` in the registry.
+  - Falls back to known browser paths only if the registry lookup fails or returns UrlRouter itself.
+  - Removed the previous hardcoded Edge fallback.
+- Added `.m3u` to the recognized media extensions list (previously only `.m3u8` was listed).
+
 ## v0.0.36
 - Added `httpproxy://` protocol interception for media streams from Android/WSA apps.
   - UrlRouter now registers itself as handler for `httpproxy://` alongside `http://` and `https://`.
