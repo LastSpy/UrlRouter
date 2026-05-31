@@ -2,6 +2,12 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.38
+- M3U Editor: added video quality panel.
+  - Detects the current quality from stream URLs (e.g. `720p`) and highlights the active button.
+  - Quick-switch buttons for 360p / 480p / 720p / 1080p replace the quality in all entries at once (both stream URLs and referrer headers).
+  - `Check max ▶` button probes the CDN server via HTTP HEAD requests to find the highest actually available quality, then offers to apply it automatically.
+
 ## v0.0.37
 - Added M3U Editor: when the effective URL is a local `.m3u` or `.m3u8` file, an `Edit .m3u` button appears on the main screen.
   - Opens a dedicated editor with syntax-highlighted file content (directives, stream URLs, comments each in distinct colors).
