@@ -2,6 +2,15 @@
 
 All notable changes to UrlRouter.
 
+## v0.0.39
+- Fixed: URL Scanner no longer attempts to scan `file://` or other non-web URLs.
+  - Scanning is now skipped with an informational note for any URL with a non-`http`/`https` scheme.
+  - Previously, scanning a local `.m3u` file caused Google Safe Browsing to return `400 Bad Request` and VirusTotal to return `429`/`404`.
+- Fixed: VirusTotal `404` is no longer treated as an error.
+  - `404` means the URL is not yet in VirusTotal's database (never analyzed), which is informational and not a threat signal.
+  - Note text updated to clearly explain the meaning.
+- Improved: scanner status "Last check" label now shows specific labels for common HTTP codes: `NOT FOUND (404)`, `RATE LIMITED (429)`, `BAD REQUEST (400)` instead of the generic `ERROR (N)`.
+
 ## v0.0.38
 - M3U Editor: added video quality panel.
   - Detects the current quality from stream URLs (e.g. `720p`) and highlights the active button.
