@@ -2,6 +2,42 @@
 
 All notable changes to UrlRouter.
 
+## v0.1.0
+Full rewrite from WinForms to Avalonia UI and a complete dashboard redesign.
+
+**Framework migration**
+- Rewritten from WinForms to Avalonia 11 / .NET 8 — GPU-accelerated rendering, high-DPI support, proper dark theme without Win32 hacks.
+- All pages (Dashboard, History, Rules, M3U Editor, Modules, Settings) reimplemented as Avalonia UserControls with MVVM bindings.
+
+**Dashboard redesign**
+- Two-column layout: left column (Working Modules, Open With, Link Inspector) and right column (Scanning Dashboard, provider cards, retractable log).
+- URL bar redesigned with two clickable tabs — "URL for Editing (Editable)" and "Effective URL (read)" — and an aligned Apply button.
+- Action buttons row above the content grid: `[Shorten URL]`, `[Scan URL Now]`, `[Edit M3U]`, `[Open in Browser (bypass)]`.
+- Working Modules card: compact single-line layout — module count and status on one line with `·` separators.
+- Scanning Dashboard: collapsible card with an `▲/▼` toggle; left side shows a colored verdict badge (LIKELY SAFE / UNSAFE / UNKNOWN), right side shows an inline scan log.
+- Three provider detail cards (VirusTotal, Google Safe Browsing, URLScan.io) each showing Status, HTTP code, Last scan time, and Locked-until time.
+- Link Inspector: shows Original → Effective URL flow; effective URL box highlights in blue when the URL was transformed by a module.
+- Open With panel: icon + name buttons in a scrollable wrap layout; up to 12 app candidates shown.
+- Retractable log: collapsible `∨/∧` section showing scanner and module notes in a monospace block.
+- Status bar at the bottom shows protocol handler registration state.
+- Sidebar updated with app PNG icon and version label; nav items styled with active/hover states.
+
+**URL scanner**
+- PhishTank replaced with URLScan.io as the third scan provider.
+  - URLScan.io submits the URL and polls for a result (up to 30 s); reports malicious verdict and score.
+  - Supports public / unlisted / private visibility modes; API key is optional for public scans.
+- Provider cards now show "Last: HH:mm" (today) or "Last: MM-dd HH:mm" (older) instead of the previous non-functional "Quota: N/A".
+- Label "Quota Lock:" renamed to "Locked:" across all provider cards.
+- On startup the Scanning Dashboard immediately shows a waiting state ("SCANNING" + spinner) instead of displaying the stale result from the previous session.
+- Scanning animation: shield icon cycles through ◐ ◓ ◑ ◒ at 180 ms while a scan is in progress (auto-scan on launch and manual `[Scan URL Now]`).
+
+**Bug fixes**
+- Fixed: app window was opening in the background when launched as a protocol handler. Analysis (2–6 s network round-trip) ran before the window was created, causing Windows focus-stealing permission to expire. Fix: window now opens immediately and analysis runs async after the `Opened` event while `SetForegroundWindow` permission is still valid.
+- Fixed: Edge browser not detected — was looking in `Program Files` but Edge installs to `Program Files (x86)` on 64-bit Windows.
+- Fixed: Opera GX not detected — launcher.exe was used instead of the correct `opera.exe` path under `%LocalAppData%\Programs\Opera GX`.
+- Fixed: `[Open in Browser (bypass)]` was silently doing nothing if no browser was found; now shows an error message prompting the user to configure a browser in Settings.
+- Fixed: stale `PhishTankLastHttpStatus` reference in verdict calculation updated to `UrlScanLastHttpStatus`.
+
 ## v0.0.39
 - Fixed: URL Scanner no longer attempts to scan `file://` or other non-web URLs.
   - Scanning is now skipped with an informational note for any URL with a non-`http`/`https` scheme.
