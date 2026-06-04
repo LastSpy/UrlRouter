@@ -2,6 +2,33 @@
 
 All notable changes to UrlRouter.
 
+## v0.1.1
+
+**Scanning Dashboard**
+- Startup now shows a waiting/scanning state instead of the stale result from the previous session; the shield icon animates (◐ ◓ ◑ ◒) while analysis is in progress.
+- Scanning animation also plays when the manual `[Scan URL Now]` button is pressed.
+- Provider cards: replaced the always-empty "Quota: N/A" field with "Last:" showing when each provider last ran (today → `HH:mm`, older → `MM-dd HH:mm`, never → `never`).
+- Provider cards: "Quota Lock:" label renamed to "Locked:".
+- Provider status: a provider that received `429 Rate limited` in a previous session now shows "Ready" once the quota lock has expired, instead of keeping the stale "Rate limited" label.
+- Fixed: only providers that actually ran in the current scan show a result; providers skipped by rate limiting now show "Not scanned" (with their last-run time still visible), so stale statuses from previous sessions no longer bleed through.
+- Fixed: navigating back to Dashboard while a scan is in progress no longer overwrites the scanning animation with old data from disk.
+- Fixed: scan results (provider HTTP statuses, quota info) are now saved to disk after auto-scan on startup — previously only the manual "Scan URL Now" path saved them, causing the next session to read stale values.
+
+**Modules page**
+- Expandable module rows (URL Scanner, URL Cleaner, Queries Remover) now expand/collapse by clicking anywhere on the header row, not just the small chevron icon; the toggle switch remains the only control for enabling/disabling the module.
+- Fixed description text for URL Scanner: updated PhishTank reference to URLScan.io.
+
+**Settings page**
+- Added "Check for updates" button; shows the result inline below the button row and prompts to download and install if a newer version is found.
+
+**Navigation / Dashboard refresh**
+- Navigating back to Dashboard now reloads the working-modules count, scanner visibility, and app buttons to reflect any settings changes made on other pages (Modules, Settings, etc.).
+- Opening UrlRouter directly (no URL argument) now correctly opens the Modules, Settings, and Rule Manager pages instead of showing a "migrating to Avalonia" placeholder dialog.
+
+**Bug fixes**
+- Fixed stale `PhishTankLastHttpStatus` reference in verdict calculation (renamed to `UrlScanLastHttpStatus` following the PhishTank → URLScan.io migration).
+- Fixed `NativeMethods`: added `AskYesNo` (Yes/No message box) used by the update installer prompt.
+
 ## v0.1.0
 Full rewrite from WinForms to Avalonia UI and a complete dashboard redesign.
 
