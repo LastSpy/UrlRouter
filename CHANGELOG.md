@@ -2,6 +2,38 @@
 
 All notable changes to UrlRouter.
 
+## v0.1.2
+
+**Modules — Changelog**
+- "Changelog note" renamed to "Changelog" and converted from a basic toggle to an expandable module row (same style as URL Scanner / URL Cleaner / Queries Remover).
+- Sub-toggle inside: "Changelog note" — appends build version to module output; can now be disabled independently while keeping the module itself enabled.
+
+**Settings page**
+- Added "Changelog" button next to "Check for updates"; opens a window showing the full `CHANGELOG.md` from the installation directory.
+
+**Theme switching (Light / Dark)**
+- Fixed: `ComboBox` for Theme and Locale was bound to `ComboBoxItem` objects instead of strings — selected value was never saved correctly. Both boxes now use `ItemsSource` with string arrays from the ViewModel.
+- Fixed: theme was hardcoded as `Dark` in `App.axaml` and never applied at runtime. `RequestedThemeVariant` is now set from saved settings on startup and immediately when Save is clicked.
+- Added theme resource dictionaries in `App.axaml` (`Dark` / `Light`) covering 19 colour tokens (window, sidebar, header, card, input, text, nav, action). Key UI surfaces (Window background, sidebar, header, cards, TextBox, nav buttons, action buttons) now use `{DynamicResource}` and switch live without a restart.
+
+**Locale**
+- `CultureInfo` is now applied to the current thread on startup and on Save — affects date and number formatting throughout the app.
+
+**Browser detection**
+- Hardcoded browser path list replaced with dynamic registry enumeration under `Software\Clients\StartMenuInternet` (HKLM + HKCU, 64-bit and 32-bit hives).
+- Display names are read from each browser's registry key; paths are resolved from `shell\open\command`.
+- Covers any browser regardless of install location — Vivaldi, Waterfox, LibreWolf, portable installs, etc.
+- `KnownApps` Open With panel uses the same registry source instead of the hardcoded list.
+
+**Modules — Changelog (viewer)**
+- "View Changelog" button moved from Settings into the Changelog module's expandable section — it no longer appears when the module is disabled.
+- Added sub-toggle "Auto-load from GitHub on open": when enabled, the Changelog window fetches the latest `CHANGELOG.md` directly from the repository on every open; when disabled, the local file is shown and GitHub can be loaded manually with the "Load from GitHub" button.
+- Changelog window now shows a source indicator ("local" / "github" / "failed") and falls back to the local file if the GitHub fetch fails.
+
+**M3U Editor — bug fixes**
+- Fixed: `[Edit M3U]` button on the Dashboard did nothing (command was never wired — `EditM3uCommand` stayed as `RelayCommand.Noop`).
+- Fixed: "Save file" and "Use as effective URL" buttons were always disabled. Both commands used a `canExecute` condition (`_loadedPath is not null`, `SelectedUrl is not null`) but `CanExecuteChanged` was never raised after the file loaded, so Avalonia never re-evaluated the enabled state. Removed the `canExecute` lambdas; the methods already guard internally.
+
 ## v0.1.1
 
 **Scanning Dashboard**
